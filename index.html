@@ -36,7 +36,7 @@
     </div>
     <script src="/src/utils/error.ts"></script>
     <script>
-      let nekyError = nekyErr({ 
+      let hdError = hdErr({ 
         url: 'http://localhost:8000', //接收报错信息地址
         method: 'POST', //请求类型 POST/GET 默认为POST 大写，如果写错了，自动使用POST
         isSampling: false, //是否采样，错误信息会存储在本地，同样的错误不会多次发送请求 true / false 默认为true
@@ -45,7 +45,7 @@
       try {
         throw new Error('我错了')
       } catch (err) {
-        nekyError.error(err)
+        hdError.error(err)
       }
     </script>
     <script type="module" src="/src/main.ts"></script>

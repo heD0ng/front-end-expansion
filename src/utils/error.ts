@@ -1,5 +1,5 @@
 /*!
- *  nekyErr v1.0.0 By suguangwen
+ *  hdErr v1.0.0 By suguangwen
  *  Github: https://github.com/suguangwen/neky-err
  *  MIT Licensed.
  */
@@ -45,19 +45,19 @@ interface ErrMsg {
     errUrl: string;
     errType: MSG;
 };
-(function (root: any, nekyErr) {
+(function (root: any, hdErr) {
     root = root || {};
     if(typeof exports === 'object' && typeof module === 'object')
-        module.exports = nekyErr
+        module.exports = hdErr
     // else if(typeof define === 'function' && define.amd)
-    //     define([], nekyErr)
+    //     define([], hdErr)
     else if(typeof exports === 'object')
-        exports["nekyErr"] = nekyErr
+        exports["hdErr"] = hdErr
     else {
-        root["nekyErr"] = nekyErr
+        root["hdErr"] = hdErr
     }
     
-    // if (window) window.nekyErr = nekyErr
+    // if (window) window.hdErr = hdErr
 
 })(this, function(configData: Config) {
 
@@ -74,7 +74,7 @@ interface ErrMsg {
 
     const allErrorData: any = []
 
-    const nekyErr:ErrorTarget = {
+    const hdErr:ErrorTarget = {
         XMLHttpRequest: XMLHttpRequest,
         message: {
             JSERR: {
@@ -179,7 +179,7 @@ interface ErrMsg {
     }
 
     //错误内容处理
-    nekyErr.errorHandler = function (error: any) {
+    hdErr.errorHandler = function (error: any) {
 
         if (sampling(error)) return
 
@@ -198,17 +198,17 @@ interface ErrMsg {
     }
 
     //异常监控API,可以用于主动监控被捕获的JavaScript异常。
-    nekyErr.error = function (error: any) {
+    hdErr.error = function (error: any) {
 
         let errData: any = {}
         if (error && error.stack) {
             errData = stackMsg(error)
         }
 
-        nekyErr.errorHandler(errorData({
+        hdErr.errorHandler(errorData({
             errMsg: errData.errMsg, 
             errUrl: errData.errUrl,
-            errType: nekyErr.message.JSERR
+            errType: hdErr.message.JSERR
         }));
     }
 
@@ -220,10 +220,10 @@ interface ErrMsg {
             errData = stackMsg(err)
         }
 
-        nekyErr.errorHandler(errorData({
+        hdErr.errorHandler(errorData({
             errMsg: errData.errMsg, 
             errUrl: errData.errUrl,
-            errType: nekyErr.message.JSERR
+            errType: hdErr.message.JSERR
         }));
     }
 
@@ -235,10 +235,10 @@ interface ErrMsg {
             errData = stackMsg(event.reason)
         }
 
-        nekyErr.errorHandler(errorData({
+        hdErr.errorHandler(errorData({
             errMsg: errData.errMsg, 
             errUrl: errData.errUrl,
-            errType: nekyErr.message.JSERR
+            errType: hdErr.message.JSERR
         }));
 
     };
@@ -249,27 +249,27 @@ interface ErrMsg {
         let errorTarget: any = e.target
 
         if (errorTarget && errorTarget.baseURI) {
-            nekyErr.errorHandler(errorData({
+            hdErr.errorHandler(errorData({
                 errMsg: errorTarget.outerHTML, 
                 errUrl: errorTarget.baseURI,
-                errType: nekyErr.message.EVENTERR
+                errType: hdErr.message.EVENTERR
             }));
         }
 
     }, true)
 
     //页面AJAX请求类型判断
-    nekyErr.XMLTYPE = function (event: any) {
+    hdErr.XMLTYPE = function (event: any) {
         let target: any = event.target
 
         if ("readystatechange" === event.type ) {
             // console.log('请求状态码改变')
             if (target.readyState == 4) {
                 if (target.status == 404) {
-                    nekyErr.errorHandler(errorData({
+                    hdErr.errorHandler(errorData({
                         errMsg: '错误码：' + event.target.status, 
                         errUrl: target.responseURL,
-                        errType: nekyErr.message.AJAXERR
+                        errType: hdErr.message.AJAXERR
                     }));
                 }
             }
@@ -277,19 +277,19 @@ interface ErrMsg {
 
         if ("error" === event.type ) {
             // console.log('请求出错')
-            nekyErr.errorHandler(errorData({
+            hdErr.errorHandler(errorData({
                 errMsg: '错误码：' + event.target.status, 
                 errUrl: target.responseURL,
-                errType: nekyErr.message.AJAXERR
+                errType: hdErr.message.AJAXERR
             }));
         }
 
         if ("timeout" === event.type ) {
             // console.log('请求超时')
-            nekyErr.errorHandler(errorData({
+            hdErr.errorHandler(errorData({
                 errMsg: '错误码：' + event.target.status, 
                 errUrl: target.responseURL,
-                errType: nekyErr.message.AJAXTIMEOUTERR
+                errType: hdErr.message.AJAXTIMEOUTERR
             }));
         }
 
@@ -298,17 +298,17 @@ interface ErrMsg {
     //监听页面所有AJAX请求
     window.XMLHttpRequest = function () {
 
-        let xhr:XMLHttpRequest  = new nekyErr.XMLHttpRequest();
+        let xhr:XMLHttpRequest  = new hdErr.XMLHttpRequest();
 
-        xhr.addEventListener("readystatechange", nekyErr.XMLTYPE)
-        xhr.addEventListener("error", nekyErr.XMLTYPE)
-        xhr.addEventListener("timeout", nekyErr.XMLTYPE)
-        xhr.addEventListener("loadstart", nekyErr.XMLTYPE)
-        xhr.addEventListener("loadend", nekyErr.XMLTYPE)
+        xhr.addEventListener("readystatechange", hdErr.XMLTYPE)
+        xhr.addEventListener("error", hdErr.XMLTYPE)
+        xhr.addEventListener("timeout", hdErr.XMLTYPE)
+        xhr.addEventListener("loadstart", hdErr.XMLTYPE)
+        xhr.addEventListener("loadend", hdErr.XMLTYPE)
 
         return xhr
     };
 
     
-    return nekyErr
+    return hdErr
 });
