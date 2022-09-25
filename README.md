@@ -44,6 +44,10 @@ nodemon/node index.js
 ### 为什么要重写history事件？
 * 因为在window上，利用addEventListener并不能监听到history事件，但是在vue-router中实际上是利用其跳转的，所以重写history事件，确保可以正常监听，然后进行数据上报；
 
+### Vue(React)错误上报
+
+* 本项目的错误处理并没有包括console.error、vue.config.errorHandler、errorBoundry，如果需要上报这些，需要在Vue或React中单独处理，本项目只针对于JS的错误处理。
+
 
 ## 说明
 * 错误监控与页面埋点，其实本质上就是监听事件，然后做数据上报，后端将数据存储后，在另一个平台以可视化或图表的方式进行展示。这个项目主要针对的是数据上报部分，不涉及监控平台可视化或图表的开发，目的是更好地理解里面的基本原理。
