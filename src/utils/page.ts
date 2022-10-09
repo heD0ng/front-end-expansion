@@ -74,5 +74,28 @@
     window.addEventListener('hashchange', fn1, true);
     window.addEventListener('popstate', fn2, true);
     window.addEventListener('pushState', fn3, true);
-    window.addEventListener('replaceState', fn4, true)
+    window.addEventListener('replaceState', fn4, true);
+
+    // 前端用户行为上报：特别是在C端（如淘宝、京东），点击行为的上报是很重要的一件事
+    const handleClick = (e:Event) => {
+        const url = location.href;
+        const obj = {
+            user: '111',
+            url,
+            behavior: 'click',
+            element: e.target,
+            agent: window.navigator.userAgent
+        };
+        console.log(e)
+        const xhr = new XMLHttpRequest()
+        xhr.open('POST','http://localhost:8001', true);
+        xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+        xhr.send(JSON.stringify(obj));
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState == 4 && valid(xhr.status)){
+                alert('数据上报成功');
+            }
+        }
+    }
+    document.addEventListener('click', handleClick)
 })();
