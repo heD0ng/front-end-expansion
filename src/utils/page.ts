@@ -84,7 +84,8 @@
             url,
             behavior: 'click',
             element: e.target,
-            agent: window.navigator.userAgent
+            agent: window.navigator.userAgent,
+            time: Date.now()
         };
         console.log(e)
         const xhr = new XMLHttpRequest()
