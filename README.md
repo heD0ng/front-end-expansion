@@ -46,8 +46,16 @@ nodemon/node index.js
 
 ### Vue(React)错误上报
 
-* 本项目的错误处理并没有包括console.error、vue.config.errorHandler、errorBoundry，如果需要上报这些，需要在Vue或React中单独处理，本项目只针对于JS的错误处理。
+* 本项目的错误处理并没有包括console.error、vue.config.errorHandler、errorBoundry，如果需要上报这些，需要在Vue或React中单独处理，本项目只针对于JS的错误处理。另外，这里需要注意的是，在Vue中必须配置vue.config.errorHandler才能使得window.error才能生效。
 
 
 ## 说明
 * 错误监控与页面埋点，其实本质上就是监听事件，然后做数据上报，后端将数据存储后，在另一个平台以可视化或图表的方式进行展示。这个项目主要针对的是数据上报部分，不涉及监控平台可视化或图表的开发，目的是更好地理解里面的基本原理。
+
+## 现有功能
+
+* [x] 错误监控
+* [x] pv、uv
+
+* [x] 性能监控
+* [x] 反调试（防小白）
