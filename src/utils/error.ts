@@ -1,8 +1,3 @@
-/*!
- *  hdErr v1.0.0 By suguangwen
- *  Github: https://github.com/suguangwen/neky-err
- *  MIT Licensed.
- */
 
 import { any } from "vue-types";
 
