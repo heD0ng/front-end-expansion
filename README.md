@@ -57,6 +57,6 @@ nodemon/node index.js
 * [x] 错误监控
 * [x] pv、uv
 * [x] 性能监控
-* [x] 反调试（防小白）
-* [ ] 埋点SDK
+* [x] 埋点SDK(未上传到github，感兴趣可私聊)
+* [ ] 性能优化实践
 * [ ] 骨架屏
